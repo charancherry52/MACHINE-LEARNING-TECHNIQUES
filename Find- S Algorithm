@@ -1,0 +1,40 @@
+# Find-S Algorithm Implementation
+
+def find_s(training_data):
+    # Step 1: Initialize hypothesis with first positive example
+    hypothesis = None
+
+    for instance in training_data:
+        attributes = instance[:-1]
+        label = instance[-1]
+
+        if label == "Yes":
+            hypothesis = attributes.copy()
+            break
+
+    # Step 2: Generalize hypothesis for all positive examples
+    for instance in training_data:
+        attributes = instance[:-1]
+        label = instance[-1]
+
+        if label == "Yes":
+            for i in range(len(hypothesis)):
+                if hypothesis[i] != attributes[i]:
+                    hypothesis[i] = "?"
+
+    return hypothesis
+
+
+# Example training dataset
+# Attributes: Sky, AirTemp, Humidity, Wind, Water, Forecast, EnjoySport
+training_data = [
+    ["Sunny", "Warm", "Normal", "Strong", "Warm", "Same", "Yes"],
+    ["Sunny", "Warm", "High", "Strong", "Warm", "Same", "Yes"],
+    ["Rainy", "Cold", "High", "Strong", "Warm", "Change", "No"],
+    ["Sunny", "Warm", "High", "Strong", "Cool", "Change", "Yes"]
+]
+
+# Run Find-S
+final_hypothesis = find_s(training_data)
+
+print("Final Hypothesis:", final_hypothesis)
